@@ -46,7 +46,7 @@ from inspect import getargspec  # Improved over raw stdlib
 
 # For sane mock patching. Meh.
 from sphinx.ext import autodoc
-
+from sphinx.util.inspect import signature
 
 class TaskDocumenter(
     autodoc.DocstringSignatureMixin, autodoc.ModuleLevelDocumenter
@@ -68,7 +68,7 @@ class TaskDocumenter(
         # TODO: also, it may become moot-ish if we turn this all into emission
         # of custom domain objects and/or make the CLI arguments the focus
         # return autodoc.formatargspec(function, *getargspec(function))
-        return sphinx.util.inspect.signature(function, *getargspec(function))
+        return signature(function, *getargspec(function))
 
     def document_members(self, all_members=False):
         # Neuter this so superclass bits don't introspect & spit out autodoc
